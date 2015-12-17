@@ -15,7 +15,7 @@ public enum UcoachDataDao {
     }
     
     try {
-      emf = Persistence.createEntityManagerFactory("introsde-jpa");
+      emf = Persistence.createEntityManagerFactory("ucoach-data-jpa");
     } catch (Exception e) {
       e.printStackTrace();
     }
