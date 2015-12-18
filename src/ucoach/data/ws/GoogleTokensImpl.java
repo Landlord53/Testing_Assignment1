@@ -21,7 +21,7 @@ public class GoogleTokensImpl implements GoogleTokensInterface {
 		// Validate client
 		boolean isValid = Authentication.validateRequest(context);
 		if (!isValid) {
-            return null;
+			return null;
 		}
 
 		// Get user
@@ -37,7 +37,7 @@ public class GoogleTokensImpl implements GoogleTokensInterface {
 		// Validate client
 		boolean isValid = Authentication.validateRequest(context);
 		if (!isValid) {
-            return null;
+			return null;
 		}
 
 		// Get user
