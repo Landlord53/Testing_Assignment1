@@ -21,23 +21,23 @@ public class Authentication {
 		MessageContext message = context.getMessageContext();
 		
 		// Get detail from request headers
-        Map headers = (Map) message.get(MessageContext.HTTP_REQUEST_HEADERS);
-        List keyList = (List) headers.get("AuthenticationKey");
+		Map headers = (Map) message.get(MessageContext.HTTP_REQUEST_HEADERS);
+		List keyList = (List) headers.get("AuthenticationKey");
 
-        String authKey = "";
-        if(keyList != null){
-        	authKey = keyList.get(0).toString();
-        }
-        
-        // Get valid authentication key from Environment
-        String validAuthKey = AUTHENTICATION_KEY;
-        if (String.valueOf(System.getenv("AUTHENTICATION_KEY")) != "null"){
-        	validAuthKey = String.valueOf(System.getenv("AUTHENTICATION_KEY"));
-        }
-        
-        if (authKey.equals(validAuthKey)){
-        	return true;
-        }
+		String authKey = "";
+		if(keyList != null){
+			authKey = keyList.get(0).toString();
+		}
+
+		// Get valid authentication key from Environment
+		String validAuthKey = AUTHENTICATION_KEY;
+		if (String.valueOf(System.getenv("AUTHENTICATION_KEY")) != "null"){
+			validAuthKey = String.valueOf(System.getenv("AUTHENTICATION_KEY"));
+		}
+
+		if (authKey.equals(validAuthKey)){
+			return true;
+		}
 
 		return false;
 	}
