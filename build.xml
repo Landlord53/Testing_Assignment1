@@ -4,7 +4,7 @@
     Description: Final Project - Data Service
     Author: anadaniel
   -->
-<project name="uCoach-data-service" default="run" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+<project name="uCoach-data-service" default="run.all" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
   <!-- PART 1: Ivy properties, download, installation and configuration -->
   <property name="ivy.install.version" value="2.4.0-rc1" />
   <property name="ivy.jar.dir" value="${basedir}/ivy" />
@@ -92,8 +92,8 @@
       </fileset>
     </copy>
   </target>
-  <target name="start" depends="install">
-    <echo message="app start auth.Main in ${build.dir}" />
+  <target name="test" depends="install">
+    <echo message="app start test in ${build.dir}" />
     <java classname="Test" classpath="${build.dir}" fork="true">
       <arg value="$JAVA_OPTS  -cp" />
       <classpath>
@@ -105,9 +105,9 @@
       </classpath>
     </java>
   </target>
-  <!-- <target name="run" depends="install">
-    <echo message="Endpoint starting" />
-    <java classname="introsde.assignment.soap.endpoint.PeoplePublisher" classpath="${build.dir}" fork="true">
+  <target name="run.google-tokens">
+    <echo message="Starting google-tokens endpoint" />
+    <java classname="ucoach.data.endpoint.GoogleTokensPublisher" classpath="${build.dir}" fork="true">
       <arg value="$JAVA_OPTS  -cp" />
       <classpath>
         <path location="build" />
@@ -118,5 +118,9 @@
       </classpath>
     </java>
     <echo message="Endpoint started" />
-  </target> -->
+  </target>
+
+	<target name="run.all" depends="install, run.google-tokens">
+	    <echo message="Starting google-tokens endpoint" />
+	</target>
 </project>

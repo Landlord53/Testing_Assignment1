@@ -10,5 +10,15 @@ public class Test {
     User createdUser = User.createUser(user);
 
     System.out.println(">>>>>>>>>>>>>>>>" + user.getFirstname());
+    
+	GoogleTokens tokens = new GoogleTokens();
+	tokens.setUser(user);
+	tokens.setAccessToken("test_access_token");
+	tokens.setRefreshToken("test_refresh_token");
+	
+	GoogleTokens.newTokens(tokens);
+	GoogleTokens testTokens = GoogleTokens.getTokensByUser(user);
+	
+	System.out.println(">>>>>>>>>>>>>>>>" + testTokens.getAccessToken());
   }
 }
