@@ -1,14 +1,14 @@
 package ucoach.data.endpoint;
 
-import ucoach.data.ws.GoogleTokensService;
+import ucoach.data.ws.UserService;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 import javax.xml.ws.Endpoint;
 
-public class GoogleTokensPublisher {
+public class UserPublisher {
 
-  public static String ENDPOINT_URL = "/ws/google-tokens";
+  public static String ENDPOINT_URL = "/ws/user";
 
   /**
    * Build endpoint url
@@ -37,15 +37,15 @@ public class GoogleTokensPublisher {
    */
   public static void publish() throws UnknownHostException {
     
-  	System.out.println("Starting GoogleTokensService");
+  	System.out.println("Starting UserService");
 
-    // Start googleTokens service
-    String googleEndpoint = getEndpointURL();
-    System.out.println("--> Published at " + googleEndpoint);
-    Endpoint.publish(googleEndpoint, new GoogleTokensService());
+    // Start User service
+    String endpointUrl = getEndpointURL();
+    System.out.println("--> Published at " + endpointUrl);
+    Endpoint.publish(endpointUrl, new UserService());
   }
-  
+
   public static void main(String[] args) throws UnknownHostException {
-  	publish();
+    publish();
   }
 }
