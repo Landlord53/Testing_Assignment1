@@ -9,8 +9,8 @@ import javax.jws.WebService;
 import javax.xml.ws.WebServiceContext;
 
 @WebService(endpointInterface="ucoach.data.ws.GoogleTokensInterface",
-    serviceName="GoogleTokensService")
-public class GoogleTokensImpl implements GoogleTokensInterface {
+  serviceName="GoogleTokensService")
+public class GoogleTokensService implements GoogleTokensInterface {
 
   @Resource
   WebServiceContext context;
