@@ -2,7 +2,7 @@ package ucoach.data.ws;
 
 import ucoach.data.model.GoogleTokens;
 import ucoach.data.model.User;
-import ucoach.data.ws.Authentication;
+import ucoach.data.ws.Authorization;
 
 import javax.annotation.Resource;
 import javax.jws.WebService;
@@ -21,7 +21,7 @@ public class GoogleTokensService implements GoogleTokensInterface {
     System.out.println("Getting tokens for user " + userId);
 
     // Validate client
-    boolean isValid = Authentication.validateRequest(context);
+    boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
       return null;
@@ -40,7 +40,7 @@ public class GoogleTokensService implements GoogleTokensInterface {
     System.out.println("Setting tokens for user " + userId);
 
     // Validate client
-    boolean isValid = Authentication.validateRequest(context);
+    boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
       return null;

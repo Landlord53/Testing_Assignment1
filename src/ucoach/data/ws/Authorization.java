@@ -6,9 +6,9 @@ import java.util.Map;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
-public class Authentication {
+public class Authorization {
 
-	private static final String AUTHORIZATION_KEY = "default_authentication_key";
+	private static final String AUTHORIZATION_KEY = "default_authorization_key";
 	
 	/**
 	 * Method to authenticate key

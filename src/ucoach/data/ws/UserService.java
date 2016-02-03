@@ -18,7 +18,7 @@ public class UserService implements UserInterface{
 		System.out.println("Getting user " + userId);
 		
 		// Validate client
-		boolean isValid = Authentication.validateRequest(context);
+		boolean isValid = Authorization.validateRequest(context);
 		if (!isValid) {
 		  System.out.println("Request not valid. Check AuthenticationKey");
 		  return null;
