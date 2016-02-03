@@ -8,7 +8,7 @@ import javax.xml.ws.handler.MessageContext;
 
 public class Authentication {
 
-	private static final String AUTHENTICATION_KEY = "default_authentication_key";
+	private static final String AUTHORIZATION_KEY = "default_authentication_key";
 	
 	/**
 	 * Method to authenticate key
@@ -22,7 +22,7 @@ public class Authentication {
 		
 		// Get detail from request headers
 		Map headers = (Map) message.get(MessageContext.HTTP_REQUEST_HEADERS);
-		List keyList = (List) headers.get("AuthenticationKey");
+		List keyList = (List) headers.get("Authorization");
 
 		String authKey = "";
 		if(keyList != null){
@@ -30,9 +30,9 @@ public class Authentication {
 		}
 
 		// Get valid authentication key from Environment
-		String validAuthKey = AUTHENTICATION_KEY;
-		if (String.valueOf(System.getenv("AUTHENTICATION_KEY")) != "null"){
-			validAuthKey = String.valueOf(System.getenv("AUTHENTICATION_KEY"));
+		String validAuthKey = AUTHORIZATION_KEY;
+		if (String.valueOf(System.getenv("AUTHORIZATION_KEY")) != "null"){
+			validAuthKey = String.valueOf(System.getenv("AUTHORIZATION_KEY"));
 		}
 
 		if (authKey.equals(validAuthKey)){
