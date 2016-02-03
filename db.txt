@@ -30,3 +30,12 @@ CREATE TABLE `ucoach_data_service`.`hm_type` (
   `units` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `ucoach_data_service`.`health_measure` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `hm_type_id` INT NOT NULL,
+  `value` FLOAT NOT NULL,
+  `date` DATETIME NOT NULL,
+  PRIMARY KEY (`id`)
+);

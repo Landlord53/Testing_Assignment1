@@ -38,7 +38,10 @@ public class User implements Serializable {
   @Temporal(TemporalType.DATE)
   @Column(name="birthdate")
   private Date birthdate;
-  
+
+  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+  @JoinColumn(name="user_id", referencedColumnName="id")
+  private List<HealthMeasure> healthMeasures;
   
   // Getters
   public int getId(){
@@ -53,6 +56,9 @@ public class User implements Serializable {
   public Date getBirthdate(){
     return birthdate;
   }
+  public List<HealthMeasure> getHealthMeasures(){
+    return healthMeasures;
+  }
   
   // Setters
   public void setId(int id){
@@ -66,6 +72,9 @@ public class User implements Serializable {
   }
   public void setBirthdate(Date birthdate){
     this.birthdate = birthdate;
+  }
+  public void setHealthMeasures(List<HealthMeasure> healthMeasures){
+    this.healthMeasures = healthMeasures;
   }
 
   /**
