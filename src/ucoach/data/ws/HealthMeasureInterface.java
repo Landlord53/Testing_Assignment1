@@ -8,13 +8,15 @@ import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
-import ucoach.data.model.User;
+import ucoach.data.model.HMType;
+
+import java.util.List;
 
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, use=Use.LITERAL)
-public interface UserInterface {
+public interface HealthMeasureInterface {
 
-  @WebMethod(operationName="getUser")
-  @WebResult(name="user") 
-  public User getUser(@WebParam(name="userId") int userId);
+  @WebMethod(operationName="getHMTypes")
+  @WebResult(name="HMType") 
+  public List<HMType> getAllHMTypes();
 }
