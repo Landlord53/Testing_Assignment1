@@ -23,3 +23,10 @@ CREATE TABLE `ucoach_data_service`.`google_tokens` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+CREATE TABLE `ucoach_data_service`.`hm_type` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `units` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`)
+);

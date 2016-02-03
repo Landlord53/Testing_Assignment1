@@ -13,7 +13,7 @@ import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- * The User class represent a user that will record health measures.
+ * The User class represents a user that will record health measures.
  * 
  * @author anadaniel
  *
