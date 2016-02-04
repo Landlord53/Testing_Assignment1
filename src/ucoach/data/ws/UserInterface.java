@@ -17,4 +17,12 @@ public interface UserInterface {
   @WebMethod(operationName="getUser")
   @WebResult(name="user") 
   public User getUser(@WebParam(name="userId") int userId);
+
+  @WebMethod(operationName="createUser")
+  @WebResult(name="user")
+  public User createUser(@WebParam(name="user") User user);
+
+  @WebMethod(operationName="updateUser")
+  @WebResult(name="updateUser")
+  public User updateUser(@WebParam(name="user") User user);
 }

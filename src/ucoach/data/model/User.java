@@ -142,14 +142,12 @@ public class User implements Serializable {
    * it on the database. When updating only specific fields, other fields will be set to
    * null, this method makes sure that the old values of the attributes that will not be 
    * updated remain in the database.
-   * 
-   * @param oldUser       The user that was retrieved from the database. It contains 
-   *                      the old information of a user.        
    * @param updatedUser   The user containing only the attributes that will be updated.
    * @return              A user with updated information but also keeping its old attributes
    */
-  public static User syncUser(User oldUser, User updatedUser) {
-    updatedUser.setId(oldUser.getId());
+  public static User syncUser(User updatedUser) {
+    User oldUser = getUserById(updatedUser.id);
+    updatedUser.setHealthMeasures(oldUser.getHealthMeasures());
 
     if (updatedUser.getFirstname() == null)
       updatedUser.setFirstname(oldUser.getFirstname());
@@ -167,12 +165,11 @@ public class User implements Serializable {
    * Updates a User in the database. It makes sure to NOT override any data that 
    * is not being updated.
    * 
-   * @param oldUser       The user with the currently saved data.
-   * @param updatedUser   The user with the updated data that will be saved.
-   * @return              The updated user
+   * @param user  The user with the updated data that will be saved.
+   * @return      The updated user
    */
-  public static User updateUser(User oldUser, User updatedUser) {
-    updatedUser = syncUser(oldUser, updatedUser);
+  public static User updateUser(User user) {
+    User updatedUser = syncUser(user);
 
     EntityManager em = UcoachDataDao.instance.createEntityManager(); 
     EntityTransaction tx = em.getTransaction();

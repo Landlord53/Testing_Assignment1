@@ -1,6 +1,6 @@
 CREATE DATABASE `ucoach_data_service`;
 
-CREATE TABLE `user` (
+CREATE TABLE `ucoach_data_service`.`user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `firstname` varchar(45) DEFAULT NULL,
   `lastname` varchar(45) DEFAULT NULL,

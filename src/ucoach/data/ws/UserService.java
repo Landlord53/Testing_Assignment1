@@ -9,7 +9,6 @@ import ucoach.data.model.User;
 @WebService(endpointInterface="ucoach.data.ws.UserInterface",
   serviceName="UserService")
 public class UserService implements UserInterface{
-
   @Resource
   WebServiceContext context;
 
@@ -25,5 +24,15 @@ public class UserService implements UserInterface{
     }
     
     return User.getUserById(userId);
+  }
+
+  @Override
+  public User createUser(User user) {
+    return User.createUser(user);
+  }
+
+  @Override
+  public User updateUser(User user){
+    return User.updateUser(user);
   }
 }
