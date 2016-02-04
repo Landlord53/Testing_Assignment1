@@ -25,4 +25,7 @@ public interface UserInterface {
   @WebMethod(operationName="updateUser")
   @WebResult(name="updateUser")
   public User updateUser(@WebParam(name="user") User user);
+
+  @WebMethod(operationName="deleteUser")
+  public void deleteUser(@WebParam(name="userId") int id);
 }

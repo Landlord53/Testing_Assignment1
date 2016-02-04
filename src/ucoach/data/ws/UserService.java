@@ -35,4 +35,10 @@ public class UserService implements UserInterface{
   public User updateUser(User user){
     return User.updateUser(user);
   }
+
+  @Override
+  public void deleteUser(int id){
+    User user = User.getUserById(id);
+    User.deleteUser(user);
+  }
 }
