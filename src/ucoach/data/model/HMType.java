@@ -64,4 +64,17 @@ public class HMType implements Serializable {
     UcoachDataDao.instance.closeConnections(em);
     return list;
   }
+
+  /**
+   * Finds a HM Type given its id.
+   * 
+   * @param hmTypeId  The id that identifies a health measure type in the database.
+   * @return          The found HM Type object.
+   */
+  public static HMType getHMTypeById(int hmTypeId) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    HMType hmType = em.find(HMType.class, hmTypeId);
+    UcoachDataDao.instance.closeConnections(em);
+    return hmType;
+  }
 }

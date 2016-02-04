@@ -94,4 +94,26 @@ public class HealthMeasure implements Serializable {
     UcoachDataDao.instance.closeConnections(em);
     return list;
   }
+
+  /**
+   * Creates a Health Measure in the database.
+   * 
+   * @param healthMeasure   The Health Measure to be persisted in the database.
+   * @param userId          The id of the person the Health Measure belongs to.
+   * @param hmTypeId        The id of the HM Type of the Health Measure.
+   * @return                The created Health Measure.
+   */
+  public static HealthMeasure createHealthMeasure(HealthMeasure healthMeasure, int userId, int hmTypeId) {
+    healthMeasure.setUser(User.getUserById(userId));
+    healthMeasure.setHmType(HMType.getHMTypeById(hmTypeId));
+    if ( healthMeasure.getDate() == null ) healthMeasure.setDate(new Date());
+
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+    em.persist(healthMeasure);
+    tx.commit();
+    UcoachDataDao.instance.closeConnections(em);
+    return healthMeasure;
+  }
 }

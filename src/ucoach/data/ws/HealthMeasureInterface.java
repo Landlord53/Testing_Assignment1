@@ -9,6 +9,7 @@ import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
 
 import ucoach.data.model.HMType;
+import ucoach.data.model.HealthMeasure;
 
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface HealthMeasureInterface {
   @WebMethod(operationName="getHMTypes")
   @WebResult(name="HMType") 
   public List<HMType> getAllHMTypes();
+
+  @WebMethod(operationName="createHealthMeasure")
+  @WebResult(name="healthMeasure")
+  public HealthMeasure createHealthMeasure(@WebParam(name="healthMeasure") HealthMeasure healthMeasure, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
 }
