@@ -16,6 +16,10 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @Entity
+@NamedQuery(
+  name = "HealthMeasure.findCurrentMeasuresForUser",
+  query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id GROUP BY hmt.id"
+)
 @Table(name="health_measure") 
 public class HealthMeasure implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -74,5 +78,20 @@ public class HealthMeasure implements Serializable {
   }
   public void setHmType(HMType hmType){
     this.hmType = hmType;
+  }
+
+  /**
+   * Gets the last recorded measure of every HMType for a given User.
+   * 
+   * @param userId   The id of the user.
+   * @return           A list of the current HealthMeasures of a User
+   */
+  public static List<HealthMeasure> getCurrentMeasuresForUser(int userId) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findCurrentMeasuresForUser")
+      .setParameter("uid", userId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
   }
 }

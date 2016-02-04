@@ -43,6 +43,13 @@ public class User implements Serializable {
   @JoinColumn(name="user_id", referencedColumnName="id")
   private List<HealthMeasure> healthMeasures;
   
+  /**
+   * This attribute is not persisted in the database, it's just used to represent the
+   * latest (current) measures that a user has recorded.
+   */
+  @Transient
+  private List<HealthMeasure> currentHealthMeasures;
+
   // Getters
   public int getId(){
     return id;
@@ -56,9 +63,20 @@ public class User implements Serializable {
   public Date getBirthdate(){
     return birthdate;
   }
+  @XmlTransient
   public List<HealthMeasure> getHealthMeasures(){
     return healthMeasures;
   }
+  @XmlElementWrapper(name="currentHealthMeasures")
+  @XmlElement(name="healthMeasure")
+  public List<HealthMeasure> getCurrentHealthMeasures(){
+    // When the currentHealthMeasures is not empty it means it's reading the measures of a user that will be created with some initial measures.
+    if (this.currentHealthMeasures == null)
+      this.currentHealthMeasures = HealthMeasure.getCurrentMeasuresForUser(this.id); // If the currentHealthMeasures is empty then it loads the lates measures of a person to represent the Health Profile 
+
+    return currentHealthMeasures;
+  }
+
   
   // Setters
   public void setId(int id){
