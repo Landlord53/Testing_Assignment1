@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="user") 
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "currentHealthMeasures"})
+@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures"})
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -73,7 +73,6 @@ public class User implements Serializable {
   public String getEmail(){
     return email;
   }
-  @XmlTransient
   public String getPassword(){
     return password;
   }
