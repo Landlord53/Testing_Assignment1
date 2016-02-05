@@ -21,6 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="user") 
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
+@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "currentHealthMeasures"})
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -38,6 +39,10 @@ public class User implements Serializable {
   @Temporal(TemporalType.DATE)
   @Column(name="birthdate")
   private Date birthdate;
+  @Column(name="email")
+  private String email;
+  @Column(name="password")
+  private String password;
 
   @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
   @JoinColumn(name="user_id", referencedColumnName="id")
@@ -62,6 +67,13 @@ public class User implements Serializable {
   }
   public Date getBirthdate(){
     return birthdate;
+  }
+  public String getEmail(){
+    return email;
+  }
+  @XmlTransient
+  public String getPassword(){
+    return password;
   }
   @XmlTransient
   public List<HealthMeasure> getHealthMeasures(){
@@ -90,6 +102,12 @@ public class User implements Serializable {
   }
   public void setBirthdate(Date birthdate){
     this.birthdate = birthdate;
+  }
+  public void setEmail(String email){
+    this.email = email;
+  }
+  public void setPassword(String password){
+    this.password = password;
   }
   public void setHealthMeasures(List<HealthMeasure> healthMeasures){
     this.healthMeasures = healthMeasures;
@@ -149,14 +167,15 @@ public class User implements Serializable {
     User oldUser = getUserById(updatedUser.id);
     updatedUser.setHealthMeasures(oldUser.getHealthMeasures());
 
-    if (updatedUser.getFirstname() == null)
-      updatedUser.setFirstname(oldUser.getFirstname());
+    if (updatedUser.getFirstname() == null) updatedUser.setFirstname(oldUser.getFirstname());
 
-    if (updatedUser.getLastname() == null)
-      updatedUser.setLastname(oldUser.getLastname());
+    if (updatedUser.getLastname() == null) updatedUser.setLastname(oldUser.getLastname());
 
-    if (updatedUser.getBirthdate() == null)
-      updatedUser.setBirthdate(oldUser.getBirthdate());
+    if (updatedUser.getEmail() == null) updatedUser.setEmail(oldUser.getEmail());
+
+    if (updatedUser.getPassword() == null) updatedUser.setPassword(oldUser.getPassword());
+
+    if (updatedUser.getBirthdate() == null) updatedUser.setBirthdate(oldUser.getBirthdate());
 
     return updatedUser;
   }
