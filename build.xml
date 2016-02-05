@@ -120,6 +120,19 @@
     </java>
   </target>
 
+  <target name="run.goal" depends="install">
+    <java classname="ucoach.data.endpoint.GoalPublisher" classpath="${build.dir}" fork="true">
+      <arg value="$JAVA_OPTS  -cp" />
+      <classpath>
+        <path location="build" />
+        <fileset dir="WebContent/WEB-INF/lib">
+          <include name="**/*.jar" />
+          <include name="*.jar" />
+        </fileset>
+      </classpath>
+    </java>
+  </target>
+
   <target name="run.all" depends="install">
     <echo message="Starting all endpoints" />
         <java classname="ucoach.data.endpoint.AllPublisher" classpath="${build.dir}" fork="true">

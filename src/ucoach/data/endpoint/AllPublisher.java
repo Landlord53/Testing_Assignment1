@@ -10,5 +10,6 @@ public class AllPublisher {
   	GoogleTokensPublisher.publish();
   	UserPublisher.publish();
     HealthMeasurePublisher.publish();
+    GoalPublisher.publish();
   }
 }
