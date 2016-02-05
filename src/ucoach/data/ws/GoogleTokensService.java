@@ -23,7 +23,7 @@ public class GoogleTokensService implements GoogleTokensInterface {
     // Validate client
     boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
-      System.out.println("Request not valid. Check AuthenticationKey");
+      System.out.println("Request not valid. Check Authorization header");
       return null;
     }
 
@@ -42,7 +42,7 @@ public class GoogleTokensService implements GoogleTokensInterface {
     // Validate client
     boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
-      System.out.println("Request not valid. Check AuthenticationKey");
+      System.out.println("Request not valid. Check Authorization header");
       return null;
     }
 
@@ -59,6 +59,30 @@ public class GoogleTokensService implements GoogleTokensInterface {
     tokens.setRefreshToken(refreshToken);
 
     // Persist to database
-    return GoogleTokens.newTokens(tokens);
+    return tokens.create();
+  }
+
+	@Override
+	public GoogleTokens updateTokens(int userId, String accessToken) {
+		System.out.println("Updating tokens for user " + userId);
+
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check Authorization header");
+      return null;
+    }
+
+    // Get user
+    User user = User.getUserById(userId);
+    if (user == null) {
+      return null;
+    }
+
+    // Get current tokens and update
+    GoogleTokens tokens = GoogleTokens.getTokensByUser(user);
+    tokens.setAccessToken(accessToken);
+    return tokens.update();
   }
 }
+

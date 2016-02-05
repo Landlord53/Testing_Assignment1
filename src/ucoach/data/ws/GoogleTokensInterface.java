@@ -27,4 +27,12 @@ public interface GoogleTokensInterface {
     @WebParam(name="accessToken") String accessToken,
     @WebParam(name="refreshToken") String refreshToken
   );
+  
+  //Set user google tokens by user id
+  @WebMethod(operationName="updateTokens")
+	@WebResult(name="tokens") 
+	public GoogleTokens updateTokens(
+	  @WebParam(name="userId") int userId,
+	  @WebParam(name="accessToken") String accessToken
+	);
 }

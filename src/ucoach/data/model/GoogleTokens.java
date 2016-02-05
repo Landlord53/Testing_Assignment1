@@ -101,15 +101,32 @@ public class GoogleTokens implements Serializable {
    * @param tokens
    * @return
    */
-  public static GoogleTokens newTokens(GoogleTokens tokens) {
+  public GoogleTokens create() {
 	  
 	  EntityManager em = UcoachDataDao.instance.createEntityManager();
 	  EntityTransaction tx = em.getTransaction();
 	  tx.begin();
-	  em.persist(tokens);
+	  em.persist(this);
 	  tx.commit();
 	  UcoachDataDao.instance.closeConnections(em);
 
-	  return tokens;
+	  return this;
+  }
+  
+  /**
+   * Update google access tokens
+   * @param tokens
+   * @return
+   */
+  public GoogleTokens update() {
+	  
+	  EntityManager em = UcoachDataDao.instance.createEntityManager();
+	  EntityTransaction tx = em.getTransaction();
+	  tx.begin();
+	  em.merge(this);
+	  tx.commit();
+	  UcoachDataDao.instance.closeConnections(em);
+
+	  return this;
   }
 }

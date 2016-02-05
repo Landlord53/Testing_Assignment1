@@ -16,7 +16,7 @@ public class Test {
 	tokens.setAccessToken("test_access_token");
 	tokens.setRefreshToken("test_refresh_token");
 	
-	GoogleTokens.newTokens(tokens);
+	tokens.create();
 	GoogleTokens testTokens = GoogleTokens.getTokensByUser(user);
 	
 	System.out.println(">>>>>>>>>>>>>>>>" + testTokens.getAccessToken());
