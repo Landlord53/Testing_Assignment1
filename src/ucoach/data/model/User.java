@@ -21,7 +21,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name="user") 
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures"})
+// @XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures"})
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,10 @@ public class User implements Serializable {
 
   @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
   private List<Goal> goals;
+
+  @ManyToOne
+  @JoinColumn(name="coach_id",referencedColumnName="id")
+  private Coach coach;
   
   /**
    * This attribute is not persisted in the database, it's just used to represent the
@@ -93,6 +97,10 @@ public class User implements Serializable {
 
     return currentHealthMeasures;
   }
+  // @XmlTransient
+  public Coach getCoach(){
+    return coach;
+  }
 
   
   // Setters
@@ -119,6 +127,9 @@ public class User implements Serializable {
   }
   public void setGoals(List<Goal> goals){
     this.goals = goals;
+  }
+  public void setCoach(Coach coach){
+    this.coach = coach;
   }
 
   /**
