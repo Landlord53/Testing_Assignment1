@@ -9,6 +9,8 @@
     <class>ucoach.data.model.User</class>
     <class>ucoach.data.model.GoogleTokens</class>
     <class>ucoach.data.model.HMType</class>
+    <class>ucoach.data.model.HealthMeasure</class>
+    <class>ucoach.data.model.Goal</class>
   <properties>
     <property name="hibernate.archive.autodetection" value="class" />
     <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLInnoDBDialect" />

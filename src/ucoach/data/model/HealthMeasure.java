@@ -99,7 +99,7 @@ public class HealthMeasure implements Serializable {
    * Creates a Health Measure in the database.
    * 
    * @param healthMeasure   The Health Measure to be persisted in the database.
-   * @param userId          The id of the person the Health Measure belongs to.
+   * @param userId          The id of the user the Health Measure belongs to.
    * @param hmTypeId        The id of the HM Type of the Health Measure.
    * @return                The created Health Measure.
    */

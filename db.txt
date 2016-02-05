@@ -39,3 +39,15 @@ CREATE TABLE `ucoach_data_service`.`health_measure` (
   `date` DATETIME NOT NULL,
   PRIMARY KEY (`id`)
 );
+
+CREATE TABLE `ucoach_data_service`.`goal` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `hm_type_id` INT NOT NULL,
+  `frequency` VARCHAR(45) NULL,
+  `objective` VARCHAR(45) NULL,
+  `value` FLOAT NULL,
+  `due_date` DATETIME NULL,
+  `achieved` VARCHAR(5) NULL DEFAULT 'false',
+  PRIMARY KEY (`id`)
+);

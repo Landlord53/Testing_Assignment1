@@ -44,9 +44,11 @@ public class User implements Serializable {
   @Column(name="password")
   private String password;
 
-  @OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
-  @JoinColumn(name="user_id", referencedColumnName="id")
+  @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
   private List<HealthMeasure> healthMeasures;
+
+  @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+  private List<Goal> goals;
   
   /**
    * This attribute is not persisted in the database, it's just used to represent the
@@ -78,6 +80,10 @@ public class User implements Serializable {
   @XmlTransient
   public List<HealthMeasure> getHealthMeasures(){
     return healthMeasures;
+  }
+  @XmlTransient
+  public List<Goal> getGoals(){
+    return goals;
   }
   @XmlElementWrapper(name="currentHealthMeasures")
   @XmlElement(name="healthMeasure")
@@ -111,6 +117,9 @@ public class User implements Serializable {
   }
   public void setHealthMeasures(List<HealthMeasure> healthMeasures){
     this.healthMeasures = healthMeasures;
+  }
+  public void setGoals(List<Goal> goals){
+    this.goals = goals;
   }
 
   /**
