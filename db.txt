@@ -1,4 +1,16 @@
+DROP DATABASE IF EXISTS `ucoach_data_service`;
 CREATE DATABASE `ucoach_data_service`;
+USE `ucoach_data_service`;
+
+CREATE TABLE `ucoach_data_service`.`coach` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(45) DEFAULT NULL,
+  `lastname` varchar(45) DEFAULT NULL,
+  `birthdate` datetime DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ucoach_data_service`.`user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -8,57 +20,81 @@ CREATE TABLE `ucoach_data_service`.`user` (
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
   `coach_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
+  PRIMARY KEY (`id`),
+  KEY `FK36EBCBF143119A` (`coach_id`),
+  CONSTRAINT `FK36EBCBF143119A` FOREIGN KEY (`coach_id`) REFERENCES `coach` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ucoach_data_service`.`google_tokens` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT(11) NOT NULL,
-  `access_token` VARCHAR(100) NOT NULL,
-  `refresh_token` VARCHAR(100) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `access_token` varchar(100) NOT NULL,
+  `refresh_token` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `user_id_token_idx` (`user_id` ASC),
-  CONSTRAINT `user_id_token`
-    FOREIGN KEY (`user_id`)
-    REFERENCES `ucoach_data_service`.`user` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
-);
+  KEY `FK1BDA6260E81B77BA` (`user_id`),
+  CONSTRAINT `FK1BDA6260E81B77BA` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ucoach_data_service`.`hm_type` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `units` VARCHAR(45) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `units` varchar(45) NOT NULL,
   PRIMARY KEY (`id`)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ucoach_data_service`.`health_measure` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `hm_type_id` INT NOT NULL,
-  `value` FLOAT NOT NULL,
-  `date` DATETIME NOT NULL,
-  PRIMARY KEY (`id`)
-);
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `hm_type_id` int(11) NOT NULL,
+  `value` float NOT NULL,
+  `date` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK4828327BE81B77BA` (`user_id`),
+  KEY `FK4828327BDB467AA5` (`hm_type_id`),
+  CONSTRAINT `FK4828327BDB467AA5` FOREIGN KEY (`hm_type_id`) REFERENCES `hm_type` (`id`),
+  CONSTRAINT `FK4828327BE81B77BA` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `ucoach_data_service`.`goal` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `hm_type_id` INT NOT NULL,
-  `frequency` VARCHAR(45) NULL,
-  `objective` VARCHAR(45) NULL,
-  `value` FLOAT NULL,
-  `due_date` DATETIME NULL,
-  `achieved` VARCHAR(5) NULL DEFAULT 'false',
-  PRIMARY KEY (`id`)
-);
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `hm_type_id` int(11) NOT NULL,
+  `frequency` varchar(45) DEFAULT NULL,
+  `objective` varchar(45) DEFAULT NULL,
+  `value` float DEFAULT NULL,
+  `due_date` datetime DEFAULT NULL,
+  `achieved` varchar(5) DEFAULT 'false',
+  PRIMARY KEY (`id`),
+  KEY `FK307F13E81B77BA` (`user_id`),
+  KEY `FK307F13DB467AA5` (`hm_type_id`),
+  CONSTRAINT `FK307F13DB467AA5` FOREIGN KEY (`hm_type_id`) REFERENCES `hm_type` (`id`),
+  CONSTRAINT `FK307F13E81B77BA` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE `ucoach_data_service`.`coach` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `firstname` VARCHAR(45) NULL,
-  `lastname` VARCHAR(45) NULL,
-  `birthdate` DATETIME NULL,
-  `email` VARCHAR(100) NULL,
-  `password` VARCHAR(100) NULL,
-  PRIMARY KEY (`id`)
-);
+INSERT INTO `ucoach_data_service`.`coach`
+  (`firstname`,`lastname`)
+  VALUES
+  ("Charles","Ferrari");
+
+INSERT INTO `ucoach_data_service`.`user`
+  (`firstname`,`lastname`, `birthdate`,`email`,`password`,`coach_id`)
+  VALUES
+  ("Ana","Daniel", "1990-01-01", "anidi@mail.com","encryptedPassword", 1),
+  ("Fede","Fiorini", "1992-01-01", "frede@mail.com","encryptedPassword2", 1);
+
+INSERT INTO `ucoach_data_service`.`hm_type`
+  (`name`,`units`)
+  VALUES
+  ("weight", "kg"),
+  ("height", "cm");
+
+INSERT INTO `ucoach_data_service`.`health_measure`
+  (`user_id`,`hm_type_id`,`value`,`date`)
+  VALUES
+  (1,1,60.00,"2016-02-01"),
+  (1,2,159.00,"2016-02-01");
+
+INSERT INTO `ucoach_data_service`.`goal`
+  (`user_id`,`hm_type_id`,`frequency`,`objective`,`value`,`achieved`)
+  VALUES
+  (1,2,"weekly","=",160.00,"false");
