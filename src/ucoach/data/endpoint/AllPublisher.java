@@ -9,6 +9,7 @@ public class AllPublisher {
   	// Publish all endpoints
   	GoogleTokensPublisher.publish();
   	UserPublisher.publish();
+    CoachPublisher.publish();
     HealthMeasurePublisher.publish();
     GoalPublisher.publish();
   }
