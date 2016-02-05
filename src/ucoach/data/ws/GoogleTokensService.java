@@ -83,6 +83,6 @@ public class GoogleTokensService implements GoogleTokensInterface {
     GoogleTokens tokens = GoogleTokens.getTokensByUser(user);
     tokens.setAccessToken(accessToken);
     return tokens.update();
-	}
+  }
 }
 
