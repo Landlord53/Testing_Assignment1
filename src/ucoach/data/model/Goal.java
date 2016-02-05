@@ -16,6 +16,10 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @Entity
+@NamedQuery(
+  name = "Goal.findGoalsFromUserByHMType",
+  query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
+)
 @Table(name="goal") 
 public class Goal implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -98,6 +102,23 @@ public class Goal implements Serializable {
   }
   public void setHmType(HMType hmType){
     this.hmType = hmType;
+  }
+
+  /**
+   * Gets the Goals for a given User and a given HM Type.
+   * 
+   * @param userId    The id of the user.
+   * @param hmTypeId  The id of the MeasureType.
+   * @return          A list of a User's Goals of a given HM Type.
+   */
+  public static List<Goal> getGoalsFromUserByHMType(int userId, int hmTypeId) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUserByHMType")
+      .setParameter("uid", userId)
+      .setParameter("hmtid", hmTypeId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
   }
 
   /**

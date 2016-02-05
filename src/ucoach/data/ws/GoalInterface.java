@@ -18,4 +18,8 @@ public interface GoalInterface {
   @WebMethod(operationName="createGoal")
   @WebResult(name="createdGoal")
   public Goal createGoal(@WebParam(name="goal") Goal goal, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="getGoalsFromUserByHMType")
+  @WebResult(name="GoalFromUserByType")
+  public List<Goal> getGoalsFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
 }

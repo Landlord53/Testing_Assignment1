@@ -19,4 +19,9 @@ public class GoalService implements GoalInterface {
   public Goal createGoal(Goal goal, int userId, int hmTypeId){
     return Goal.createGoal(goal, userId, hmTypeId);
   }
+
+  @Override
+  public List<Goal> getGoalsFromUserByHMType(int userId, int hmTypeId){
+    return Goal.getGoalsFromUserByHMType(userId, hmTypeId);
+  }
 }
