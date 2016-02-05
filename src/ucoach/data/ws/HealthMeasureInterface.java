@@ -22,6 +22,10 @@ public interface HealthMeasureInterface {
   public List<HMType> getAllHMTypes();
 
   @WebMethod(operationName="createHealthMeasure")
-  @WebResult(name="healthMeasure")
+  @WebResult(name="createdHealthMeasure")
   public HealthMeasure createHealthMeasure(@WebParam(name="healthMeasure") HealthMeasure healthMeasure, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="getHealthMeasuresFromUserByHMType")
+  @WebResult(name="healthMeasureFromUserByType")
+  public List<HealthMeasure> getHealthMeasuresFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
 }

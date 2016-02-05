@@ -25,4 +25,9 @@ public class HealthMeasureService implements HealthMeasureInterface {
   public HealthMeasure createHealthMeasure(HealthMeasure healthMeasure, int userId, int hmTypeId) {
     return HealthMeasure.createHealthMeasure(healthMeasure, userId, hmTypeId);
   }
+
+  @Override
+  public List<HealthMeasure> getHealthMeasuresFromUserByHMType(int userId, int hmTypeId){
+    return HealthMeasure.getHealthMeasuresFromUserByHMType(userId, hmTypeId);
+  }
 }

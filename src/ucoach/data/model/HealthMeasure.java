@@ -16,10 +16,16 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @Entity
-@NamedQuery(
-  name = "HealthMeasure.findCurrentMeasuresForUser",
-  query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id GROUP BY hmt.id"
-)
+@NamedQueries({
+  @NamedQuery(
+    name = "HealthMeasure.findCurrentMeasuresForUser",
+    query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id GROUP BY hmt.id"
+  ),
+  @NamedQuery(
+    name = "HealthMeasure.findHealthMeasuresFromUserByHMType",
+    query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY hm.id DESC"
+  )
+})
 @Table(name="health_measure") 
 public class HealthMeasure implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -90,6 +96,23 @@ public class HealthMeasure implements Serializable {
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findCurrentMeasuresForUser")
       .setParameter("uid", userId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Health Measures for a given User and a given HM Type.
+   * 
+   * @param userId    The id of the user.
+   * @param hmTypeId  The id of the MeasureType.
+   * @return          A list of a User's Health Measures of a given HM Type.
+   */
+  public static List<HealthMeasure> getHealthMeasuresFromUserByHMType(int userId, int hmTypeId) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMType")
+      .setParameter("uid", userId)
+      .setParameter("hmtid", hmTypeId)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;
