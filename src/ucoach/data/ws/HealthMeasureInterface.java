@@ -28,4 +28,7 @@ public interface HealthMeasureInterface {
   @WebMethod(operationName="getHealthMeasuresFromUserByHMType")
   @WebResult(name="healthMeasureFromUserByType")
   public List<HealthMeasure> getHealthMeasuresFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="deleteHealthMeasure")
+  public void deleteHealthMeasure(@WebParam(name="healthMeasureId") int healthMeasureId);
 }

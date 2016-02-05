@@ -24,4 +24,10 @@ public class GoalService implements GoalInterface {
   public List<Goal> getGoalsFromUserByHMType(int userId, int hmTypeId){
     return Goal.getGoalsFromUserByHMType(userId, hmTypeId);
   }
+
+  @Override
+  public void deleteGoal(int goalId){
+    Goal goal = Goal.getGoalById(goalId);
+    Goal.deleteGoal(goal);
+  }
 }

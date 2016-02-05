@@ -30,4 +30,10 @@ public class HealthMeasureService implements HealthMeasureInterface {
   public List<HealthMeasure> getHealthMeasuresFromUserByHMType(int userId, int hmTypeId){
     return HealthMeasure.getHealthMeasuresFromUserByHMType(userId, hmTypeId);
   }
+
+  @Override
+  public void deleteHealthMeasure(int healthMeasureId){
+    HealthMeasure healthMeasure = HealthMeasure.getHealthMeasureById(healthMeasureId);
+    HealthMeasure.deleteHealthMeasure(healthMeasure);
+  }
 }

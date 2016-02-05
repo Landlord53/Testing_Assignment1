@@ -22,4 +22,7 @@ public interface GoalInterface {
   @WebMethod(operationName="getGoalsFromUserByHMType")
   @WebResult(name="GoalFromUserByType")
   public List<Goal> getGoalsFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="deleteGoal")
+  public void deleteGoal(@WebParam(name="goalId") int goalId);
 }

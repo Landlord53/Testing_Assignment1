@@ -105,6 +105,20 @@ public class Goal implements Serializable {
   }
 
   /**
+   * Finds a Goal in the database given its id.
+   * @param id    The id of the goal
+   * @return      The found goal
+   */
+  public static Goal getGoalById(int id) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    Goal goal = em.find(Goal.class, id);
+    if(goal != null)
+      em.refresh(goal);
+    UcoachDataDao.instance.closeConnections(em);
+    return goal;
+  }
+
+  /**
    * Gets the Goals for a given User and a given HM Type.
    * 
    * @param userId    The id of the user.
@@ -140,5 +154,20 @@ public class Goal implements Serializable {
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);
     return goal;
+  }
+
+  /**
+   * Deletes a Goal from the database.
+   * 
+   * @param goal  The goal that will be deleted.
+   */
+  public static void deleteGoal(Goal goal) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+    goal = em.merge(goal);
+    em.remove(goal);
+    tx.commit();
+    UcoachDataDao.instance.closeConnections(em);
   }
 }

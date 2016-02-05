@@ -87,6 +87,20 @@ public class HealthMeasure implements Serializable {
   }
 
   /**
+   * Finds a HealthMeasure in the database given its id.
+   * @param id    The id of the healthMeasure
+   * @return      The found healthMeasure
+   */
+  public static HealthMeasure getHealthMeasureById(int id) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    HealthMeasure healthMeasure = em.find(HealthMeasure.class, id);
+    if(healthMeasure != null)
+      em.refresh(healthMeasure);
+    UcoachDataDao.instance.closeConnections(em);
+    return healthMeasure;
+  }
+
+  /**
    * Gets the last recorded measure of every HMType for a given User.
    * 
    * @param userId   The id of the user.
@@ -138,5 +152,20 @@ public class HealthMeasure implements Serializable {
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);
     return healthMeasure;
+  }
+
+  /**
+   * Deletes a HealthMeasure from the database.
+   * 
+   * @param healthMeasure  The healthMeasure that will be deleted.
+   */
+  public static void deleteHealthMeasure(HealthMeasure healthMeasure) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+    healthMeasure = em.merge(healthMeasure);
+    em.remove(healthMeasure);
+    tx.commit();
+    UcoachDataDao.instance.closeConnections(em);
   }
 }
