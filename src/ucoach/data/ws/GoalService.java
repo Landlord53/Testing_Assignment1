@@ -17,17 +17,37 @@ public class GoalService implements GoalInterface {
 
   @Override
   public Goal createGoal(Goal goal, int userId, int hmTypeId){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return Goal.createGoal(goal, userId, hmTypeId);
   }
 
   @Override
   public List<Goal> getGoalsFromUserByHMType(int userId, int hmTypeId){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return Goal.getGoalsFromUserByHMType(userId, hmTypeId);
   }
 
   @Override
   public void deleteGoal(int goalId){
-    Goal goal = Goal.getGoalById(goalId);
-    Goal.deleteGoal(goal);
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+    } else {
+      Goal goal = Goal.getGoalById(goalId);
+      Goal.deleteGoal(goal);
+    }
   }
 }

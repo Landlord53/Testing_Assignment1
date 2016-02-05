@@ -28,17 +28,37 @@ public class UserService implements UserInterface{
 
   @Override
   public User createUser(User user) {
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return User.createUser(user);
   }
 
   @Override
   public User updateUser(User user){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return User.updateUser(user);
   }
 
   @Override
   public void deleteUser(int id){
-    User user = User.getUserById(id);
-    User.deleteUser(user);
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+    } else {
+      User user = User.getUserById(id);
+      User.deleteUser(user);
+    }
   }
 }

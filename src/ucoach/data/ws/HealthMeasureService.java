@@ -18,22 +18,49 @@ public class HealthMeasureService implements HealthMeasureInterface {
 
   @Override
   public List<HMType> getAllHMTypes() {
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return HMType.getAll();
   }
 
   @Override
   public HealthMeasure createHealthMeasure(HealthMeasure healthMeasure, int userId, int hmTypeId) {
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return HealthMeasure.createHealthMeasure(healthMeasure, userId, hmTypeId);
   }
 
   @Override
   public List<HealthMeasure> getHealthMeasuresFromUserByHMType(int userId, int hmTypeId){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return HealthMeasure.getHealthMeasuresFromUserByHMType(userId, hmTypeId);
   }
 
   @Override
   public void deleteHealthMeasure(int healthMeasureId){
-    HealthMeasure healthMeasure = HealthMeasure.getHealthMeasureById(healthMeasureId);
-    HealthMeasure.deleteHealthMeasure(healthMeasure);
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+    } else{
+      HealthMeasure healthMeasure = HealthMeasure.getHealthMeasureById(healthMeasureId);
+      HealthMeasure.deleteHealthMeasure(healthMeasure);
+    }
   }
 }

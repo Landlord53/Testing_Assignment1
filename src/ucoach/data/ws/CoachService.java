@@ -28,17 +28,37 @@ public class CoachService implements CoachInterface{
 
   @Override
   public Coach createCoach(Coach coach) {
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return Coach.createCoach(coach);
   }
 
   @Override
   public Coach updateCoach(Coach coach){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
     return Coach.updateCoach(coach);
   }
 
   @Override
   public void deleteCoach(int id){
-    Coach coach = Coach.getCoachById(id);
-    Coach.deleteCoach(coach);
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+    } else {
+      Coach coach = Coach.getCoachById(id);
+      Coach.deleteCoach(coach);
+    }
   }
 }
