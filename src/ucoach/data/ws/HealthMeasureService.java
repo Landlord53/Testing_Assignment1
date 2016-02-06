@@ -67,7 +67,7 @@ public class HealthMeasureService implements HealthMeasureInterface {
 
     Date date;    
     try{
-      DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
       date = df.parse(afterDate);
     } catch (ParseException e){
       return null;
@@ -88,7 +88,7 @@ public class HealthMeasureService implements HealthMeasureInterface {
     Date from;
     Date to;  
     try{
-      DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
       from = df.parse(fromDate);
       to = df.parse(toDate);
     } catch (ParseException e){

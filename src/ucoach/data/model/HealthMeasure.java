@@ -47,7 +47,7 @@ public class HealthMeasure implements Serializable {
   private int id;
   @Column(name="value")
   private Float value;
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   @Column(name="created_date")
   private Date createdDate;
 
@@ -153,7 +153,7 @@ public class HealthMeasure implements Serializable {
     List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMTypeAfterDate")
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
-      .setParameter("date", afterDate, TemporalType.TIMESTAMP)
+      .setParameter("date", afterDate, TemporalType.DATE)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;
@@ -173,8 +173,8 @@ public class HealthMeasure implements Serializable {
     List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMTypeBetweenDates")
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
-      .setParameter("from", fromDate, TemporalType.TIMESTAMP)
-      .setParameter("to", toDate, TemporalType.TIMESTAMP)
+      .setParameter("from", fromDate, TemporalType.DATE)
+      .setParameter("to", toDate, TemporalType.DATE)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;
