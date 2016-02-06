@@ -19,7 +19,7 @@ public interface CoachInterface {
   public Coach getCoach(@WebParam(name="coachId") int coachId);
 
   @WebMethod(operationName="createCoach")
-  @WebResult(name="coach")
+  @WebResult(name="createdCoach")
   public Coach createCoach(@WebParam(name="coach") Coach coach);
 
   @WebMethod(operationName="updateCoach")

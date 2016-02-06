@@ -19,7 +19,7 @@ public interface UserInterface {
   public User getUser(@WebParam(name="userId") int userId);
 
   @WebMethod(operationName="createUser")
-  @WebResult(name="user")
+  @WebResult(name="createdUser")
   public User createUser(@WebParam(name="user") User user);
 
   @WebMethod(operationName="updateUser")
