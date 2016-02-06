@@ -38,6 +38,9 @@ public class Goal implements Serializable {
   @Column(name="value")
   private Float value;
   @Temporal(TemporalType.DATE)
+  @Column(name="created_date")
+  private Date createdDate;
+  @Temporal(TemporalType.DATE)
   @Column(name="due_date")
   private Date dueDate;
   @Column(name="achieved")
@@ -63,6 +66,9 @@ public class Goal implements Serializable {
   }
   public Float getValue(){
     return value;
+  }
+  public Date getCreatedDate(){
+    return createdDate;
   }
   public Date getDueDate(){
     return dueDate;
@@ -90,6 +96,9 @@ public class Goal implements Serializable {
   }
   public void setValue(Float value){
     this.value = value;
+  }
+  public void setCreatedDate(Date createdDate){
+    this.createdDate = createdDate;
   }
   public void setDueDate(Date dueDate){
     this.dueDate = dueDate;
@@ -146,6 +155,7 @@ public class Goal implements Serializable {
   public static Goal createGoal(Goal goal, int userId, int hmTypeId) {
     goal.setUser(User.getUserById(userId));
     goal.setHmType(HMType.getHMTypeById(hmTypeId));
+    if ( goal.getCreatedDate() == null ) goal.setCreatedDate(new Date());
 
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();

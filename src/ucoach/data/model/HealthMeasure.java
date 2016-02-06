@@ -40,8 +40,8 @@ public class HealthMeasure implements Serializable {
   @Column(name="value")
   private Float value;
   @Temporal(TemporalType.DATE)
-  @Column(name="date")
-  private Date date;
+  @Column(name="created_date")
+  private Date createdDate;
 
   @ManyToOne
   @JoinColumn(name="hm_type_id",referencedColumnName="id")
@@ -58,8 +58,8 @@ public class HealthMeasure implements Serializable {
   public Float getValue(){
     return value;
   }
-  public Date getDate(){
-    return date;
+  public Date getCreatedDate(){
+    return createdDate;
   }
   @XmlTransient
   public User getUser(){
@@ -76,8 +76,8 @@ public class HealthMeasure implements Serializable {
   public void setValue(Float value){
     this.value = value;
   }
-  public void setDate(Date date){
-    this.date = date;
+  public void setCreatedDate(Date createdDate){
+    this.createdDate = createdDate;
   }
   public void setUser(User user){
     this.user = user;
@@ -143,7 +143,7 @@ public class HealthMeasure implements Serializable {
   public static HealthMeasure createHealthMeasure(HealthMeasure healthMeasure, int userId, int hmTypeId) {
     healthMeasure.setUser(User.getUserById(userId));
     healthMeasure.setHmType(HMType.getHMTypeById(hmTypeId));
-    if ( healthMeasure.getDate() == null ) healthMeasure.setDate(new Date());
+    if ( healthMeasure.getCreatedDate() == null ) healthMeasure.setCreatedDate(new Date());
 
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();

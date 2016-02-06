@@ -47,13 +47,14 @@ CREATE TABLE `ucoach_data_service`.`health_measure` (
   `user_id` int(11) NOT NULL,
   `hm_type_id` int(11) NOT NULL,
   `value` float NOT NULL,
-  `date` datetime NOT NULL,
+  `created_date` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK4828327BE81B77BA` (`user_id`),
   KEY `FK4828327BDB467AA5` (`hm_type_id`),
   CONSTRAINT `FK4828327BDB467AA5` FOREIGN KEY (`hm_type_id`) REFERENCES `hm_type` (`id`),
   CONSTRAINT `FK4828327BE81B77BA` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE `ucoach_data_service`.`goal` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -62,8 +63,9 @@ CREATE TABLE `ucoach_data_service`.`goal` (
   `frequency` varchar(45) DEFAULT NULL,
   `objective` varchar(45) DEFAULT NULL,
   `value` float DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL,
   `due_date` datetime DEFAULT NULL,
-  `achieved` varchar(5) DEFAULT 'false',
+  `achieved` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `FK307F13E81B77BA` (`user_id`),
   KEY `FK307F13DB467AA5` (`hm_type_id`),
@@ -89,12 +91,13 @@ INSERT INTO `ucoach_data_service`.`hm_type`
   ("height", "cm");
 
 INSERT INTO `ucoach_data_service`.`health_measure`
-  (`user_id`,`hm_type_id`,`value`,`date`)
+  (`user_id`,`hm_type_id`,`value`,`created_date`)
   VALUES
   (1,1,60.00,"2016-02-01"),
   (1,2,159.00,"2016-02-01");
 
 INSERT INTO `ucoach_data_service`.`goal`
-  (`user_id`,`hm_type_id`,`frequency`,`objective`,`value`,`achieved`)
+  (`user_id`,`hm_type_id`,`frequency`,`objective`,`value`,`achieved`, `created_date`)
   VALUES
-  (1,2,"weekly","=",160.00,"false");
+  (1,2,"weekly","=",160.00,0,"2016-02-01"),
+  (1,2,"yearly","=",200.00,0,"2016-02-01");
