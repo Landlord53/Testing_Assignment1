@@ -133,7 +133,7 @@
     </java>
   </target>
 
-  <target name="run.all" depends="install">
+  <target name="run" depends="install">
     <echo message="Starting all endpoints" />
         <java classname="ucoach.data.endpoint.AllPublisher" classpath="${build.dir}" fork="true">
           <arg value="$JAVA_OPTS  -cp" />
