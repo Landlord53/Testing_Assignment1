@@ -41,6 +41,14 @@ public interface HealthMeasureInterface {
     @WebParam(name="hmTypeId") int hmTypeId, 
     @WebParam(name="afterDate") String afterDate);
 
+  @WebMethod(operationName="getHealthMeasuresFromUserByTypeBetweenDates")
+  @WebResult(name="healthMeasureFromUserByTypeBetweenDates")
+  public List<HealthMeasure> getHealthMeasuresFromUserByTypeBetweenDates(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId, 
+    @WebParam(name="fromDate") String fromDate,
+    @WebParam(name="toDate") String toDate);
+
   @WebMethod(operationName="deleteHealthMeasure")
   public void deleteHealthMeasure(@WebParam(name="healthMeasureId") int healthMeasureId);
 }

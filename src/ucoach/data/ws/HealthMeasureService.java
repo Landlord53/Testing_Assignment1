@@ -67,13 +67,35 @@ public class HealthMeasureService implements HealthMeasureInterface {
 
     Date date;    
     try{
-      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
       date = df.parse(afterDate);
     } catch (ParseException e){
       return null;
     }
     
     return HealthMeasure.getHealthMeasuresFromUserByHMTypeAfterDate(userId, hmTypeId, date);
+  }
+
+  @Override
+  public List<HealthMeasure> getHealthMeasuresFromUserByTypeBetweenDates(int userId, int hmTypeId, String fromDate, String toDate){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+
+    Date from;
+    Date to;  
+    try{
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+      from = df.parse(fromDate);
+      to = df.parse(toDate);
+    } catch (ParseException e){
+      return null;
+    }
+    
+    return HealthMeasure.getHealthMeasuresFromUserByHMTypeBetweenDates(userId, hmTypeId, from, to);
   }
 
   @Override

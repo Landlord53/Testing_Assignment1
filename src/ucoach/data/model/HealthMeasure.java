@@ -28,12 +28,11 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(
     name = "HealthMeasure.findHealthMeasuresFromUserByHMTypeAfterDate",
     query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid AND hm.createdDate >= :date ORDER BY hm.id DESC"
+  ),
+  @NamedQuery(
+    name = "HealthMeasure.findHealthMeasuresFromUserByHMTypeBetweenDates",
+    query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid AND hm.createdDate BETWEEN :from AND :to ORDER BY hm.id DESC"
   )
-  // ,
-  // @NamedQuery(
-  //   name = "HealthMeasure.findHealthMeasuresFromUserByHMTypeBetweenDates",
-  //   query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY hm.id DESC"
-  // )
 })
 @Table(name="health_measure") 
 public class HealthMeasure implements Serializable {
@@ -48,7 +47,7 @@ public class HealthMeasure implements Serializable {
   private int id;
   @Column(name="value")
   private Float value;
-  @Temporal(TemporalType.DATE)
+  @Temporal(TemporalType.TIMESTAMP)
   @Column(name="created_date")
   private Date createdDate;
 
@@ -154,7 +153,28 @@ public class HealthMeasure implements Serializable {
     List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMTypeAfterDate")
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
-      .setParameter("date", afterDate, TemporalType.DATE)
+      .setParameter("date", afterDate, TemporalType.TIMESTAMP)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Health Measures for a given User and a given HM Type and bewteen two dates.
+   * 
+   * @param userId        The id of the user.
+   * @param hmTypeId      The id of the MeasureType.
+   * @param fromDate
+   * @param toDate
+   * @return              A list of a User's Health Measures of a given HM Type.
+   */
+  public static List<HealthMeasure> getHealthMeasuresFromUserByHMTypeBetweenDates(int userId, int hmTypeId, Date fromDate, Date toDate) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMTypeBetweenDates")
+      .setParameter("uid", userId)
+      .setParameter("hmtid", hmTypeId)
+      .setParameter("from", fromDate, TemporalType.TIMESTAMP)
+      .setParameter("to", toDate, TemporalType.TIMESTAMP)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;
