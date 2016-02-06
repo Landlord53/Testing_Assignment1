@@ -14,8 +14,6 @@ public class UserService implements UserInterface{
 
   @Override
   public User getUser(int userId) {
-    System.out.println("Getting user " + userId);
-    
     // Validate client
     boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
@@ -24,6 +22,18 @@ public class UserService implements UserInterface{
     }
     
     return User.getUserById(userId);
+  }
+
+  @Override
+  public User getUserByEmail(String email){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+
+    return User.getUserByEmail(email);
   }
 
   @Override

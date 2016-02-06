@@ -18,6 +18,10 @@ public interface UserInterface {
   @WebResult(name="user") 
   public User getUser(@WebParam(name="userId") int userId);
 
+  @WebMethod(operationName="getUserByEmail")
+  @WebResult(name="userByEmail") 
+  public User getUserByEmail(@WebParam(name="email") String email);
+
   @WebMethod(operationName="createUser")
   @WebResult(name="createdUser")
   public User createUser(@WebParam(name="user") User user);

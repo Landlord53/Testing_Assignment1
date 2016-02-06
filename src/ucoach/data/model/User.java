@@ -19,9 +19,12 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @Entity
-@Table(name="user") 
-@NamedQuery(name="User.findAll", query="SELECT u FROM User u")
-// @XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures"})
+@Table(name="user")
+@NamedQueries({
+  @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
+  @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email")
+})
+@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures", "coach"})
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -154,6 +157,25 @@ public class User implements Serializable {
     User user = em.find(User.class, id);
     if(user != null)
       em.refresh(user);
+    UcoachDataDao.instance.closeConnections(em);
+    return user;
+  }
+
+  /**
+   * Finds a User in the database given its email.
+   * @param email   The email of the user
+   * @return        The found user
+   */
+  public static User getUserByEmail(String email) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<User> list = em.createNamedQuery("User.findByEmail")
+      .setParameter("email", email)
+      .getResultList();
+    User user = null;
+    if (list.size() > 0){
+      user = list.get(0);
+      em.refresh(user);
+    }
     UcoachDataDao.instance.closeConnections(em);
     return user;
   }
