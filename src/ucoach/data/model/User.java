@@ -221,13 +221,13 @@ public class User implements Serializable {
   /**
    * Deletes a User from the database.
    * 
-   * @param user  The user that will be deleted.
+   * @param userId  The id of user that will be deleted.
    */
-  public static void deleteUser(User user) {
+  public static void deleteUser(int userId) {
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    user = em.merge(user);
+    User user = em.find(User.class, userId);
     em.remove(user);
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);

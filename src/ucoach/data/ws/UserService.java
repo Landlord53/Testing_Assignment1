@@ -57,8 +57,7 @@ public class UserService implements UserInterface{
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
     } else {
-      User user = User.getUserById(id);
-      User.deleteUser(user);
+      User.deleteUser(id);
     }
   }
 }

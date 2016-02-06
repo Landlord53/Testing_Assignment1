@@ -157,13 +157,13 @@ public class HealthMeasure implements Serializable {
   /**
    * Deletes a HealthMeasure from the database.
    * 
-   * @param healthMeasure  The healthMeasure that will be deleted.
+   * @param healthMeasureId  The id of the healthMeasure that will be deleted.
    */
-  public static void deleteHealthMeasure(HealthMeasure healthMeasure) {
+  public static void deleteHealthMeasure(int healthMeasureId) {
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    healthMeasure = em.merge(healthMeasure);
+    HealthMeasure healthMeasure = em.find(HealthMeasure.class, healthMeasureId);
     em.remove(healthMeasure);
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);

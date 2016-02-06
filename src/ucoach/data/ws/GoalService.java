@@ -46,8 +46,7 @@ public class GoalService implements GoalInterface {
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
     } else {
-      Goal goal = Goal.getGoalById(goalId);
-      Goal.deleteGoal(goal);
+      Goal.deleteGoal(goalId);
     }
   }
 }

@@ -169,13 +169,13 @@ public class Goal implements Serializable {
   /**
    * Deletes a Goal from the database.
    * 
-   * @param goal  The goal that will be deleted.
+   * @param goalId  The id of the goal that will be deleted.
    */
-  public static void deleteGoal(Goal goal) {
+  public static void deleteGoal(int goalId) {
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    goal = em.merge(goal);
+    Goal goal = em.find(Goal.class, goalId);
     em.remove(goal);
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);

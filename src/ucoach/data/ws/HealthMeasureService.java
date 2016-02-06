@@ -59,8 +59,7 @@ public class HealthMeasureService implements HealthMeasureInterface {
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
     } else{
-      HealthMeasure healthMeasure = HealthMeasure.getHealthMeasureById(healthMeasureId);
-      HealthMeasure.deleteHealthMeasure(healthMeasure);
+      HealthMeasure.deleteHealthMeasure(healthMeasureId);
     }
   }
 }

@@ -57,8 +57,7 @@ public class CoachService implements CoachInterface{
     if (!isValid) {
       System.out.println("Request not valid. Check AuthenticationKey");
     } else {
-      Coach coach = Coach.getCoachById(id);
-      Coach.deleteCoach(coach);
+      Coach.deleteCoach(id);
     }
   }
 }

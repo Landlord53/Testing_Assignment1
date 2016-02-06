@@ -171,13 +171,13 @@ public class Coach implements Serializable {
   /**
    * Deletes a Coach from the database.
    * 
-   * @param coach  The coach that will be deleted.
+   * @param coachId  The id of coach that will be deleted.
    */
-  public static void deleteCoach(Coach coach) {
+  public static void deleteCoach(int coachId) {
     EntityManager em = UcoachDataDao.instance.createEntityManager();
     EntityTransaction tx = em.getTransaction();
     tx.begin();
-    coach = em.merge(coach);
+    Coach coach = em.find(Coach.class, coachId);
     em.remove(coach);
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);
