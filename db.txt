@@ -88,7 +88,13 @@ INSERT INTO `ucoach_data_service`.`hm_type`
   (`name`,`units`)
   VALUES
   ("weight", "kg"),
-  ("height", "cm");
+  ("height", "cm"),
+  ("steps", "steps"),
+  ("heart rate","bpm"),
+  ("calories","calories"),
+  ("running", "km"),
+  ("walking", "km"),
+  ("cycling", "km");
 
 INSERT INTO `ucoach_data_service`.`health_measure`
   (`user_id`,`hm_type_id`,`value`,`created_date`)
