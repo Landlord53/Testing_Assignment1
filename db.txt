@@ -94,7 +94,8 @@ INSERT INTO `ucoach_data_service`.`hm_type`
   ("calories","calories"),
   ("running", "km"),
   ("walking", "km"),
-  ("cycling", "km");
+  ("cycling", "km"),
+  ("sleeping", "hours");
 
 INSERT INTO `ucoach_data_service`.`health_measure`
   (`user_id`,`hm_type_id`,`value`,`created_date`)

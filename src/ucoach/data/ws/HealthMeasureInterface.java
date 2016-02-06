@@ -23,11 +23,23 @@ public interface HealthMeasureInterface {
 
   @WebMethod(operationName="createHealthMeasure")
   @WebResult(name="createdHealthMeasure")
-  public HealthMeasure createHealthMeasure(@WebParam(name="healthMeasure") HealthMeasure healthMeasure, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+  public HealthMeasure createHealthMeasure(
+    @WebParam(name="healthMeasure") HealthMeasure healthMeasure, 
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId);
 
-  @WebMethod(operationName="getHealthMeasuresFromUserByHMType")
+  @WebMethod(operationName="getHealthMeasuresFromUserByType")
   @WebResult(name="healthMeasureFromUserByType")
-  public List<HealthMeasure> getHealthMeasuresFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+  public List<HealthMeasure> getHealthMeasuresFromUserByType(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="getHealthMeasuresFromUserByTypeAfterDate")
+  @WebResult(name="healthMeasureFromUserByTypeAfterDate")
+  public List<HealthMeasure> getHealthMeasuresFromUserByTypeAfterDate(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId, 
+    @WebParam(name="afterDate") String afterDate);
 
   @WebMethod(operationName="deleteHealthMeasure")
   public void deleteHealthMeasure(@WebParam(name="healthMeasureId") int healthMeasureId);

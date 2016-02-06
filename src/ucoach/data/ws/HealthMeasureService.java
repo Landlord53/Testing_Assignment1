@@ -8,6 +8,10 @@ import ucoach.data.model.HMType;
 import ucoach.data.model.HealthMeasure;
 
 import java.util.List;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 @WebService(endpointInterface="ucoach.data.ws.HealthMeasureInterface",
   serviceName="HealthMeasureService")
@@ -41,7 +45,7 @@ public class HealthMeasureService implements HealthMeasureInterface {
   }
 
   @Override
-  public List<HealthMeasure> getHealthMeasuresFromUserByHMType(int userId, int hmTypeId){
+  public List<HealthMeasure> getHealthMeasuresFromUserByType(int userId, int hmTypeId){
     // Validate client
     boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
@@ -50,6 +54,26 @@ public class HealthMeasureService implements HealthMeasureInterface {
     }
     
     return HealthMeasure.getHealthMeasuresFromUserByHMType(userId, hmTypeId);
+  }
+
+  @Override
+  public List<HealthMeasure> getHealthMeasuresFromUserByTypeAfterDate(int userId, int hmTypeId, String afterDate){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+
+    Date date;    
+    try{
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+      date = df.parse(afterDate);
+    } catch (ParseException e){
+      return null;
+    }
+    
+    return HealthMeasure.getHealthMeasuresFromUserByHMTypeAfterDate(userId, hmTypeId, date);
   }
 
   @Override

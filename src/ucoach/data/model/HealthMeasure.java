@@ -24,7 +24,16 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(
     name = "HealthMeasure.findHealthMeasuresFromUserByHMType",
     query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY hm.id DESC"
+  ),
+  @NamedQuery(
+    name = "HealthMeasure.findHealthMeasuresFromUserByHMTypeAfterDate",
+    query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid AND hm.createdDate >= :date ORDER BY hm.id DESC"
   )
+  // ,
+  // @NamedQuery(
+  //   name = "HealthMeasure.findHealthMeasuresFromUserByHMTypeBetweenDates",
+  //   query = "SELECT hm FROM HealthMeasure hm, HMType hmt WHERE hm.user.id = :uid AND hm.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY hm.id DESC"
+  // )
 })
 @Table(name="health_measure") 
 public class HealthMeasure implements Serializable {
@@ -127,6 +136,25 @@ public class HealthMeasure implements Serializable {
     List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMType")
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Health Measures for a given User and a given HM Type and after a specified createdDate.
+   * 
+   * @param userId        The id of the user.
+   * @param hmTypeId      The id of the MeasureType.
+   * @param createdAfter  
+   * @return              A list of a User's Health Measures of a given HM Type.
+   */
+  public static List<HealthMeasure> getHealthMeasuresFromUserByHMTypeAfterDate(int userId, int hmTypeId, Date afterDate) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<HealthMeasure> list = em.createNamedQuery("HealthMeasure.findHealthMeasuresFromUserByHMTypeAfterDate")
+      .setParameter("uid", userId)
+      .setParameter("hmtid", hmTypeId)
+      .setParameter("date", afterDate, TemporalType.DATE)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;
