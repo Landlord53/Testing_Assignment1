@@ -82,7 +82,7 @@ INSERT INTO `ucoach_data_service`.`user`
   (`firstname`,`lastname`, `birthdate`,`email`,`password`,`coach_id`)
   VALUES
   ("Ana","Daniel", "1990-01-01", "anidi@mail.com","encryptedPassword", 1),
-  ("Fede","Fiorini", "1992-01-01", "frede@mail.com","encryptedPassword2", 1);
+  ("Fede","Fiorini", "1992-01-01", "fede@mail.com","encryptedPassword2", 1);
 
 INSERT INTO `ucoach_data_service`.`hm_type`
   (`name`,`units`)
