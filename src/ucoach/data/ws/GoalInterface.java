@@ -25,4 +25,7 @@ public interface GoalInterface {
 
   @WebMethod(operationName="deleteGoal")
   public void deleteGoal(@WebParam(name="goalId") int goalId);
+
+  @WebMethod(operationName="achieveGoal")
+  public Goal achieveGoal(@WebParam(name="goalId") int goalId);
 }

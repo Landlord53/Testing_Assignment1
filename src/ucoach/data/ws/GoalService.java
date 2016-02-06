@@ -49,4 +49,16 @@ public class GoalService implements GoalInterface {
       Goal.deleteGoal(goalId);
     }
   }
+
+  @Override
+  public Goal achieveGoal(int goalId){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    Goal goal = Goal.getGoalById(goalId);
+    return Goal.achieveGoal(goal);
+  }
 }

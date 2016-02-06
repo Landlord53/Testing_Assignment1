@@ -44,7 +44,7 @@ public class Goal implements Serializable {
   @Column(name="due_date")
   private Date dueDate;
   @Column(name="achieved")
-  private String achieved;
+  private int achieved;
 
   @ManyToOne
   @JoinColumn(name="hm_type_id",referencedColumnName="id")
@@ -73,7 +73,7 @@ public class Goal implements Serializable {
   public Date getDueDate(){
     return dueDate;
   }
-  public String getAchieved(){
+  public int getAchieved(){
     return achieved;
   }
   @XmlTransient
@@ -103,7 +103,7 @@ public class Goal implements Serializable {
   public void setDueDate(Date dueDate){
     this.dueDate = dueDate;
   }
-  public void setAchieved(String achieved){
+  public void setAchieved(int achieved){
     this.achieved = achieved;
   }
   public void setUser(User user){
@@ -161,6 +161,24 @@ public class Goal implements Serializable {
     EntityTransaction tx = em.getTransaction();
     tx.begin();
     em.persist(goal);
+    tx.commit();
+    UcoachDataDao.instance.closeConnections(em);
+    return goal;
+  }
+
+  /**
+   * Sets a goal to achieved = 1
+   * 
+   * @param Goal      The Goal to be updated in the database.
+   * @return          The updated Goal.
+   */
+  public static Goal achieveGoal(Goal goal) {
+    goal.setAchieved(1);
+
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    EntityTransaction tx = em.getTransaction();
+    tx.begin();
+    goal = em.merge(goal);
     tx.commit();
     UcoachDataDao.instance.closeConnections(em);
     return goal;
