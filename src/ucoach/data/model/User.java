@@ -195,13 +195,19 @@ public class User implements Serializable {
    * @return        The saved user
    */
   public static User createUser(User user) {
-    EntityManager em = UcoachDataDao.instance.createEntityManager();
-    EntityTransaction tx = em.getTransaction();
-    tx.begin();
-    em.persist(user);
-    tx.commit();
-    UcoachDataDao.instance.closeConnections(em);
-    return user;
+  	try {
+	    EntityManager em = UcoachDataDao.instance.createEntityManager();
+	    EntityTransaction tx = em.getTransaction();
+	    tx.begin();
+	    em.persist(user);
+	    tx.commit();
+	    UcoachDataDao.instance.closeConnections(em);
+
+	    return user;
+  	} catch (Exception e) {
+  		System.out.println(e.getMessage());
+  		return null;
+  	}
   }
   
   /**
