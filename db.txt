@@ -19,6 +19,7 @@ CREATE TABLE `ucoach_data_service`.`user` (
   `birthdate` datetime DEFAULT NULL,
   `email` varchar(100) DEFAULT NULL,
   `password` varchar(100) DEFAULT NULL,
+  `twitter_username` varchar(100) DEFAULT NULL,
   `coach_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `FK36EBCBF143119A` (`coach_id`),
@@ -79,10 +80,10 @@ INSERT INTO `ucoach_data_service`.`coach`
   ("Charles","Ferrari");
 
 INSERT INTO `ucoach_data_service`.`user`
-  (`firstname`,`lastname`, `birthdate`,`email`,`password`,`coach_id`)
+  (`firstname`,`lastname`, `birthdate`,`email`,`password`, `twitter_username`,`coach_id`)
   VALUES
-  ("Ana","Daniel", "1990-01-01", "anidi@mail.com","encryptedPassword", 1),
-  ("Fede","Fiorini", "1992-01-01", "fede@mail.com","encryptedPassword2", 1);
+  ("Ana","Daniel", "1990-01-01", "anidi@mail.com","encryptedPassword", "anidi", 1),
+  ("Fede","Fiorini", "1992-01-01", "fede@mail.com","encryptedPassword2", "freddy", 1);
 
 INSERT INTO `ucoach_data_service`.`hm_type`
   (`name`,`units`)

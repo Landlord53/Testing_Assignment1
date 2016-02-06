@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
   @NamedQuery(name="User.findAll", query="SELECT u FROM User u"),
   @NamedQuery(name="User.findByEmail", query="SELECT u FROM User u WHERE u.email = :email")
 })
-@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "currentHealthMeasures", "coach"})
+@XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password", "twitterUsername", "currentHealthMeasures", "coach"})
 public class User implements Serializable {
   private static final long serialVersionUID = 1L;
 
@@ -46,6 +46,8 @@ public class User implements Serializable {
   private String email;
   @Column(name="password")
   private String password;
+  @Column(name="twitter_username")
+  private String twitterUsername;
 
   @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
   private List<HealthMeasure> healthMeasures;
@@ -82,6 +84,9 @@ public class User implements Serializable {
   }
   public String getPassword(){
     return password;
+  }
+  public String getTwitterUsername(){
+    return twitterUsername;
   }
   @XmlTransient
   public List<HealthMeasure> getHealthMeasures(){
@@ -124,6 +129,9 @@ public class User implements Serializable {
   }
   public void setPassword(String password){
     this.password = password;
+  }
+  public void setTwitterUsername(String twitterUsername){
+    this.twitterUsername = twitterUsername;
   }
   public void setHealthMeasures(List<HealthMeasure> healthMeasures){
     this.healthMeasures = healthMeasures;
