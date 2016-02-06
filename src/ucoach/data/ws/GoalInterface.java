@@ -19,9 +19,13 @@ public interface GoalInterface {
   @WebResult(name="createdGoal")
   public Goal createGoal(@WebParam(name="goal") Goal goal, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
 
-  @WebMethod(operationName="getGoalsFromUserByHMType")
+  @WebMethod(operationName="getGoalsFromUserByType")
   @WebResult(name="GoalFromUserByType")
-  public List<Goal> getGoalsFromUserByHMType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+  public List<Goal> getGoalsFromUserByType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="getGoalsFromUserByTypeAndStatus")
+  @WebResult(name="GoalFromUserByTypeAndStatus")
+  public List<Goal> getGoalsFromUserByTypeAndStatus(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId, @WebParam(name="achieved") int achieved);
 
   @WebMethod(operationName="deleteGoal")
   public void deleteGoal(@WebParam(name="goalId") int goalId);

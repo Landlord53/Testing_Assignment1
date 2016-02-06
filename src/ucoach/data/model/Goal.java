@@ -16,10 +16,16 @@ import javax.xml.bind.annotation.XmlTransient;
  *
  */
 @Entity
-@NamedQuery(
-  name = "Goal.findGoalsFromUserByHMType",
-  query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
-)
+@NamedQueries({
+  @NamedQuery(
+    name = "Goal.findGoalsFromUserByHMType",
+    query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
+  ),
+  @NamedQuery(
+  name = "Goal.findGoalsFromUserByHMTypeAndAchievedStatus",
+  query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.achieved = :a AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
+  )
+})
 @Table(name="goal") 
 public class Goal implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -139,6 +145,25 @@ public class Goal implements Serializable {
     List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUserByHMType")
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Goals for a given User, a given HM Type and a given Achieved status.
+   * 
+   * @param userId    The id of the user.
+   * @param hmTypeId  The id of the MeasureType.
+   * @param achieved  Whether a goal has been achieved 
+   * @return          A list of a User's Goals of a given HM Type.
+   */
+  public static List<Goal> getGoalsFromUserByHMTypeAndAchievedStatus(int userId, int hmTypeId, int achieved) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUserByHMTypeAndAchievedStatus")
+      .setParameter("uid", userId)
+      .setParameter("hmtid", hmTypeId)
+      .setParameter("a", achieved)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;

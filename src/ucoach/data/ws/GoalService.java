@@ -28,7 +28,7 @@ public class GoalService implements GoalInterface {
   }
 
   @Override
-  public List<Goal> getGoalsFromUserByHMType(int userId, int hmTypeId){
+  public List<Goal> getGoalsFromUserByType(int userId, int hmTypeId){
     // Validate client
     boolean isValid = Authorization.validateRequest(context);
     if (!isValid) {
@@ -37,6 +37,18 @@ public class GoalService implements GoalInterface {
     }
     
     return Goal.getGoalsFromUserByHMType(userId, hmTypeId);
+  }
+
+  @Override
+  public List<Goal> getGoalsFromUserByTypeAndStatus(int userId, int hmTypeId, int achieved){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
+    return Goal.getGoalsFromUserByHMTypeAndAchievedStatus(userId, hmTypeId, achieved);
   }
 
   @Override
