@@ -14,7 +14,7 @@ public enum UcoachDataDao {
   private EntityManagerFactory emf;
 
   private Map<String, String> getDBProperties(){
-    String databaseUrl = System.getenv("CLEARDB_DATABASE_URL");
+    String databaseUrl = System.getenv("JAWSDB_URL");
     Map<String, String> properties = new HashMap<String, String>();
 
     if( databaseUrl != null ) {
@@ -23,8 +23,10 @@ public enum UcoachDataDao {
       String username = st.nextToken();
       String password = st.nextToken();
       String host = st.nextToken();
+      String port = st.nextToken();
       String databaseName = st.nextToken();
       String jdbcUrl = String.format("jdbc:%s://%s:3306/%s?reconnect=true", dbVendor, host, databaseName);
+      System.out.println(">>>>>>>>>> jdbcUrl:" + jdbcUrl);
       properties.put("hibernate.connection.url", jdbcUrl);
       properties.put("hibernate.connection.username", username);
       properties.put("hibernate.connection.password", password);
