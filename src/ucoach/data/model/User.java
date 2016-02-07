@@ -49,7 +49,7 @@ public class User implements Serializable {
   @Column(name="twitter_username")
   private String twitterUsername;
 
-  @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+  @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
   private List<HealthMeasure> healthMeasures;
 
   @OneToMany(mappedBy="user", cascade=CascadeType.ALL, fetch=FetchType.LAZY)
