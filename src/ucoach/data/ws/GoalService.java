@@ -7,6 +7,10 @@ import javax.xml.ws.WebServiceContext;
 import ucoach.data.model.Goal;
 
 import java.util.List;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 @WebService(endpointInterface="ucoach.data.ws.GoalInterface",
   serviceName="GoalService")
@@ -25,6 +29,58 @@ public class GoalService implements GoalInterface {
     }
     
     return Goal.createGoal(goal, userId, hmTypeId);
+  }
+
+  @Override
+  public List<Goal> getGoalsFromUser(int userId){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+    
+    return Goal.getGoalsFromUser(userId);
+  }
+
+  @Override
+  public List<Goal> getGoalsFromUserAfterDueDate(int userId, String dueDate){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+
+    Date date;    
+    try{
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+      date = df.parse(dueDate);
+    } catch (ParseException e){
+      return null;
+    }
+    
+    return Goal.getGoalsFromUserAfterDueDate(userId, date);
+  }
+
+  @Override
+  public List<Goal> getGoalsFromUserByFrequencyAndDueDate(int userId, String frequency, String dueDate){
+    // Validate client
+    boolean isValid = Authorization.validateRequest(context);
+    if (!isValid) {
+      System.out.println("Request not valid. Check AuthenticationKey");
+      return null;
+    }
+
+    Date date;    
+    try{
+      DateFormat df = new SimpleDateFormat("yyyy-MM-dd"); 
+      date = df.parse(dueDate);
+    } catch (ParseException e){
+      return null;
+    }
+    
+    return Goal.getGoalsFromUserByFrequencyAndDueDate(userId, frequency, date);
   }
 
   @Override

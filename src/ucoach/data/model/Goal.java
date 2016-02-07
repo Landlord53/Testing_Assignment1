@@ -18,12 +18,24 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @NamedQueries({
   @NamedQuery(
+    name = "Goal.findGoalsFromUser",
+    query = "SELECT g FROM Goal g WHERE g.user.id = :uid ORDER BY g.id DESC"
+  ),
+  @NamedQuery(
     name = "Goal.findGoalsFromUserByHMType",
     query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
   ),
   @NamedQuery(
   name = "Goal.findGoalsFromUserByHMTypeAndAchievedStatus",
   query = "SELECT g FROM Goal g, HMType hmt WHERE g.user.id = :uid AND g.achieved = :a AND g.hmType.id = hmt.id AND hmt.id = :hmtid ORDER BY g.id DESC"
+  ),
+  @NamedQuery(
+    name = "Goal.findGoalsFromUserAfterDueDate",
+    query = "SELECT g FROM Goal g WHERE g.user.id = :uid AND g.dueDate >= :date ORDER BY g.id DESC"
+  ),
+  @NamedQuery(
+    name = "Goal.findGoalsFromUserByFrequencyAndDueDate",
+    query = "SELECT g FROM Goal g WHERE g.user.id = :uid AND g.frequency = :freq AND g.dueDate = :date ORDER BY g.id DESC"
   )
 })
 @Table(name="goal") 
@@ -134,6 +146,21 @@ public class Goal implements Serializable {
   }
 
   /**
+   * Gets the Goals for a given User.
+   * 
+   * @param userId    The id of the user.
+   * @return          A list of a User's Goals.
+   */
+  public static List<Goal> getGoalsFromUser(int userId) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUser")
+      .setParameter("uid", userId)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
    * Gets the Goals for a given User and a given HM Type.
    * 
    * @param userId    The id of the user.
@@ -164,6 +191,42 @@ public class Goal implements Serializable {
       .setParameter("uid", userId)
       .setParameter("hmtid", hmTypeId)
       .setParameter("a", achieved)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Goals for a given User after a specified dueDate.
+   * 
+   * @param userId        The id of the user.
+   * @param dueDate  
+   * @return              A list of a User's Goals.
+   */
+  public static List<Goal> getGoalsFromUserAfterDueDate(int userId, Date dueDate) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUserAfterDueDate")
+      .setParameter("uid", userId)
+      .setParameter("date", dueDate, TemporalType.DATE)
+      .getResultList();
+    UcoachDataDao.instance.closeConnections(em);
+    return list;
+  }
+
+  /**
+   * Gets the Goals for a given User a frequency and dueDate.
+   * 
+   * @param userId      The id of the user.
+   * @param frequency   The frequency of the goals.
+   * @param dueDate     The dueDate of the Goals.
+   * @return            A list of a User's Goals.
+   */
+  public static List<Goal> getGoalsFromUserByFrequencyAndDueDate(int userId, String frequency, Date dueDate) {
+    EntityManager em = UcoachDataDao.instance.createEntityManager();
+    List<Goal> list = em.createNamedQuery("Goal.findGoalsFromUserByFrequencyAndDueDate")
+      .setParameter("uid", userId)
+      .setParameter("freq", frequency)
+      .setParameter("date", dueDate)
       .getResultList();
     UcoachDataDao.instance.closeConnections(em);
     return list;

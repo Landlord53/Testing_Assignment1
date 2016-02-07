@@ -17,15 +17,40 @@ import java.util.List;
 public interface GoalInterface {
   @WebMethod(operationName="createGoal")
   @WebResult(name="createdGoal")
-  public Goal createGoal(@WebParam(name="goal") Goal goal, @WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+  public Goal createGoal(
+    @WebParam(name="goal") Goal goal, 
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId);
+
+  @WebMethod(operationName="getGoalsFromUser")
+  @WebResult(name="GoalFromUser")
+  public List<Goal> getGoalsFromUser(@WebParam(name="userId") int userId);
+
+  @WebMethod(operationName="getGoalsFromUserAfterDueDate")
+  @WebResult(name="GoalsFromUserAfterDueDate")
+  public List<Goal> getGoalsFromUserAfterDueDate(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="dueDate") String dueDate);
+
+  @WebMethod(operationName="getGoalsFromUserByFrequencyAndDueDate")
+  @WebResult(name="GoalsFromUserByFrequencyAndDueDate")
+  public List<Goal> getGoalsFromUserByFrequencyAndDueDate(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="frequency") String frequency, 
+    @WebParam(name="dueDate") String dueDate);
 
   @WebMethod(operationName="getGoalsFromUserByType")
   @WebResult(name="GoalFromUserByType")
-  public List<Goal> getGoalsFromUserByType(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId);
+  public List<Goal> getGoalsFromUserByType(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId);
 
   @WebMethod(operationName="getGoalsFromUserByTypeAndStatus")
   @WebResult(name="GoalFromUserByTypeAndStatus")
-  public List<Goal> getGoalsFromUserByTypeAndStatus(@WebParam(name="userId") int userId, @WebParam(name="hmTypeId") int hmTypeId, @WebParam(name="achieved") int achieved);
+  public List<Goal> getGoalsFromUserByTypeAndStatus(
+    @WebParam(name="userId") int userId, 
+    @WebParam(name="hmTypeId") int hmTypeId, 
+    @WebParam(name="achieved") int achieved);
 
   @WebMethod(operationName="deleteGoal")
   public void deleteGoal(@WebParam(name="goalId") int goalId);
