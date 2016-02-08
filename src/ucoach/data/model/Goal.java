@@ -55,10 +55,10 @@ public class Goal implements Serializable {
   private String objective;
   @Column(name="value")
   private Float value;
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   @Column(name="created_date")
   private Date createdDate;
-  @Temporal(TemporalType.TIMESTAMP)
+  @Temporal(TemporalType.DATE)
   @Column(name="due_date")
   private Date dueDate;
   @Column(name="achieved")
