@@ -26,7 +26,6 @@ public enum UcoachDataDao {
       String port = st.nextToken();
       String databaseName = st.nextToken();
       String jdbcUrl = String.format("jdbc:%s://%s:3306/%s?reconnect=true", dbVendor, host, databaseName);
-      System.out.println(">>>>>>>>>> jdbcUrl:" + jdbcUrl);
       properties.put("hibernate.connection.url", jdbcUrl);
       properties.put("hibernate.connection.username", username);
       properties.put("hibernate.connection.password", password);
