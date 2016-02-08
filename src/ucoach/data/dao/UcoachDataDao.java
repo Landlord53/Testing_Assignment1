@@ -30,31 +30,23 @@ public enum UcoachDataDao {
       properties.put("hibernate.connection.username", username);
       properties.put("hibernate.connection.password", password);
       properties.put("hibernate.connection.password", password);
-      properties.put("hibernate.connection.pool_size", "8");
-      properties.put("hibernate.connection.max_active", "10");
-      properties.put("hibernate.connection.max_idle", "5");
-      properties.put("hibernate.connection.min_idle", "2");
-      properties.put("hibernate.connection.remove_abandoned", "true");
+      properties.put("hibernate.connection.pool_size", "10");
       properties.put("hibernate.connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
       properties.put("hibernate.c3p0.min_size", "1");
-      properties.put("hibernate.c3p0.max_size", "5");
-      properties.put("hibernate.c3p0.timeout", "300");
-      properties.put("hibernate.c3p0.idle_test_period", "3000");
+      properties.put("hibernate.c3p0.max_size", "10");
+      properties.put("hibernate.c3p0.timeout", "50");
+      // properties.put("hibernate.c3p0.idle_test_period", "300");
 
     } else {
       properties.put("hibernate.connection.url", "jdbc:mysql://127.0.0.1:3306/ucoach_data_service");
       properties.put("hibernate.connection.username", "root");
       properties.put("hibernate.connection.password", "root");
-      properties.put("hibernate.connection.pool_size", "8");
-      properties.put("hibernate.connection.max_active", "10");
-      properties.put("hibernate.connection.max_idle", "5");
-      properties.put("hibernate.connection.min_idle", "2");
-      properties.put("hibernate.connection.remove_abandoned", "true");
+      properties.put("hibernate.connection.pool_size", "10");
       properties.put("hibernate.connection.provider_class", "org.hibernate.connection.C3P0ConnectionProvider");
       properties.put("hibernate.c3p0.min_size", "1");
-      properties.put("hibernate.c3p0.max_size", "5");
-      properties.put("hibernate.c3p0.timeout", "300");
-      properties.put("hibernate.c3p0.idle_test_period", "3000");
+      properties.put("hibernate.c3p0.max_size", "2");
+      properties.put("hibernate.c3p0.timeout", "20");
+      // properties.put("hibernate.c3p0.idle_test_period", "20");
     }
 
     return properties;
