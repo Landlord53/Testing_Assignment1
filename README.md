@@ -2,7 +2,7 @@
 
 The Internal Data Service is the service that interact to the MySQL database and provides a SOAP interface to the external world.
 
-For more information and list of wsdl resources provided see the [Wiki](wiki)
+For more information and list of wsdl resources provided see the [Wiki](../../wiki)
 
 ###DEPENDENCIES
 
