@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #Internal data service
 
 The Internal Data Service is the service that interact to the MySQL database and provides a SOAP interface to the external world.
@@ -18,3 +19,6 @@ For more information and list of wsdl resources provided see the [Wiki](../../wi
 #####Deployed on Heorku:
 
   	https://ucoach-internal-data-service.herokuapp.com
+=======
+# Testing_Assignment1
+>>>>>>> origin/master
