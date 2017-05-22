@@ -34,7 +34,7 @@
     <fileset dir="${build.dir}">
       <include name="*.class" />
       <include name="**/*.class" />
-      <exclude name="**/*Test*" />
+      <exclude name="**/*ucoach.data.ws.Test*" />
     </fileset>
   </path>
 

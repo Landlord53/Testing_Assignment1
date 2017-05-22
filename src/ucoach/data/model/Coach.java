@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name="coach") 
 @NamedQuery(name="Coach.findAll", query="SELECT u FROM Coach u")
 @XmlType(propOrder={"id","firstname","lastname", "birthdate", "email", "password"})
-public class Coach implements Serializable {
+public class Coach implements Serializable{
   private static final long serialVersionUID = 1L;
 
   @Id
